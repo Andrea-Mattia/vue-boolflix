@@ -21,6 +21,7 @@ export default {
       apiFilmURL: "https://api.themoviedb.org/3/search/movie",
       apiSeriesURL: "https://api.themoviedb.org/3/search/tv",
       apiTrendingURL: "https://api.themoviedb.org/3/trending/all/week",
+      apiKey: "2789b3e89104d5b01e7ea9ac095a6e01",
       filmList: [],
       seriesList: [],
     };
@@ -29,7 +30,7 @@ export default {
     axios
       .get(this.apiTrendingURL, {
         params: {
-          api_key: "2789b3e89104d5b01e7ea9ac095a6e01",
+          api_key: this.apiKey,
           language: "it-IT",
         },
       })
@@ -41,35 +42,34 @@ export default {
       });
   },
   methods: {
-    getFilmTV(text) {
-      axios
-        .get(this.apiFilmURL, {
-          params: {
-            api_key: "2789b3e89104d5b01e7ea9ac095a6e01",
-            language: "it-IT",
-            query: text,
-          },
-        })
-        .then((res) => {
-          this.filmList = res.data.results;
-        })
-        .catch((err) => {
-          console.log("ERROR", err);
-        });
-      axios
-        .get(this.apiSeriesURL, {
-          params: {
-            api_key: "2789b3e89104d5b01e7ea9ac095a6e01",
-            language: "it-IT",
-            query: text,
-          },
-        })
-        .then((res) => {
-          this.seriesList = res.data.results;
-        })
-        .catch((err) => {
-          console.log("ERROR", err);
-        });
+    getFilmTV(searchText) {
+      if (searchText !== "") {
+        const apiParams = {
+          api_key: this.apiKey,
+          language: "it-IT",
+          query: searchText,
+        };
+        axios
+          .get(this.apiFilmURL, {
+            params: apiParams,
+          })
+          .then((res) => {
+            this.filmList = res.data.results;
+          })
+          .catch((err) => {
+            console.log("ERROR", err);
+          });
+        axios
+          .get(this.apiSeriesURL, {
+            params: apiParams,
+          })
+          .then((res) => {
+            this.seriesList = res.data.results;
+          })
+          .catch((err) => {
+            console.log("ERROR", err);
+          });
+      }
     },
   },
 };

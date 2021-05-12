@@ -55,6 +55,12 @@
         </span>
       </li>
       <li>
+        <strong>Data di uscita: </strong>
+        {{
+          info.release_date == null ? info.first_air_date : info.release_date
+        }}
+      </li>
+      <li class="overview">
         <strong>Overview: </strong>
         {{ info.overview }}
       </li>
@@ -81,6 +87,7 @@ export default {
   margin-bottom: 20px;
   overflow: hidden;
   cursor: pointer;
+  transition: transform 0.2s;
   &::after {
     content: "";
     position: absolute;
@@ -92,9 +99,16 @@ export default {
     opacity: 0;
     transition: opacity 0.2s;
   }
+  &:hover {
+    transform: scale(1.12);
+    z-index: 1;
+  }
   &:hover::after,
   &:hover ul {
     opacity: 1;
+  }
+  &:hover ul {
+    bottom: 1rem;
   }
   .poster {
     position: absolute;
@@ -105,15 +119,19 @@ export default {
   ul {
     z-index: 1;
     position: absolute;
-    top: 50%;
+    bottom: 100%;
     left: 1rem;
-    transform: translateY(-50%);
+    right: 1rem;
     list-style: none;
     color: $text-primary;
     opacity: 0;
-    transition: opacity 0.2s;
+    transition: opacity 0.2s, bottom 0.2s;
     li {
       margin-bottom: 1rem;
+      &.overview {
+        max-height: 200px;
+        overflow-y: auto;
+      }
     }
   }
   span {
