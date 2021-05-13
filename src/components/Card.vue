@@ -4,10 +4,10 @@
       class="poster"
       :src="`https://image.tmdb.org/t/p/w342/${info.poster_path}`"
       :alt="info.title"
-      v-if="info.poster_path != null"
+      v-if="info.poster_path"
     />
     <img
-      class="poster"
+      class="poster no-img"
       src="https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg"
       alt="no-img-found"
       v-else
@@ -115,6 +115,11 @@ export default {
     top: 0;
     left: 0;
     object-fit: contain;
+  }
+  .poster.no-img {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
   ul {
     z-index: 1;
