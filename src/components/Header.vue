@@ -5,8 +5,15 @@
     </a>
     <form class="search">
       <label for="search">Start searching!</label>
-      <i class="fas fa-search"></i>
-      <input v-model.trim="searchText" type="text" name="search" id="search" />
+      <div class="input-hov">
+        <i class="fas fa-search"></i>
+        <input
+          v-model.trim="searchText"
+          type="text"
+          name="search"
+          id="search"
+        />
+      </div>
       <button type="submit" @click.prevent="$emit('searchText', searchText)">
         Go!
       </button>
@@ -46,13 +53,23 @@ header {
       margin-right: 1rem;
       color: $text-primary;
     }
+    .input-hov {
+      @include df("vertical");
+      border-radius: 10px;
+      background: $text-primary;
+      transition: background 0.4s;
+      &:hover,
+      &:focus {
+        background: #ddd;
+      }
+    }
     i {
       height: 36px;
       width: 50px;
       padding: 10px;
       text-align: center;
       color: $text-secondary;
-      background: $text-primary;
+      background: transparent;
       border-top-left-radius: 10px;
       border-bottom-left-radius: 10px;
     }
@@ -61,13 +78,13 @@ header {
       padding: 10px;
       outline: none;
       border: transparent;
+      background: transparent;
       text-overflow: ellipsis;
       border-top-right-radius: 10px;
       border-bottom-right-radius: 10px;
-      transition: width 0.4s, background 0.4s;
+      transition: width 0.4s;
       &:hover,
       &:focus {
-        background: #ddd;
         width: 300px;
       }
     }

@@ -87,6 +87,7 @@ export default {
   margin-bottom: 20px;
   overflow: hidden;
   cursor: pointer;
+  border-radius: 10px;
   transition: transform 0.2s;
   &::after {
     content: "";
